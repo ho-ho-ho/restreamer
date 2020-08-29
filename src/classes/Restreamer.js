@@ -510,7 +510,31 @@ class Restreamer {
         Restreamer.writeToDB();
         Restreamer.updateStreamDataOnGui();
 
+        // only send webhook if the stream started/ended
+        if (previousState == 'connected' || state == 'connected') {
+            Restreamer.sendWebhook(state);
+        }
+
         return state;
+    }
+
+    static sendWebhook(state) {
+        if(process.env.RS_WEBHOOK_URL == '')
+            return;
+
+        const data = process.env.RS_WEBHOOK_DATA.replace("$state", state);
+
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': process.env.RS_WEBHOOK_CONTENT_TYPE
+            }
+        };
+
+        var req = https.request(process.env.RS_WEBHOOK_URL, options);
+
+        req.write(data);
+        req.end();
     }
 
     static setState(streamType, state, message) {

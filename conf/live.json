@@ -339,6 +339,30 @@
             "defaultValue": "",
             "required": false,
             "description": "Automatically start pushing to this stream on a fresh Restreamer installation."
+        },
+        {
+            "name": "RS_WEBHOOK_URL",
+            "alias": [],
+            "type": "string",
+            "defaultValue": "",
+            "required": false,
+            "description": "Send a webhook to this url when streaming starts/ends"
+        },
+        {
+            "name": "RS_WEBHOOK_CONTENT_TYPE",
+            "alias": [],
+            "type": "string",
+            "defaultValue": "application/json",
+            "required": false,
+            "description": "The Content-Type value of this webhook (needed if not sending json)"
+        },
+        {
+            "name": "RS_WEBHOOK_DATA",
+            "alias": [],
+            "type": "string",
+            "defaultValue": "{\"state\":\"$state\"}",
+            "required": false,
+            "description": "The webhook data, $state will be filled in with the current state"
         }
     ]
 }
